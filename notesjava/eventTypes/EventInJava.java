@@ -1,4 +1,4 @@
-package practice.eventTypes;
+package notesjava.eventTypes;
 
 import javax.swing.*;
 import java.awt.*;
