@@ -28,7 +28,7 @@ public class FlowLayoutUI  {
         submitBtn.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                Dialog dialog = new Dialog(frame,"Message",true);
+                Dialog dialog = new Dialog(frame,"Messages",true);
                 dialog.setLayout(new FlowLayout(FlowLayout.CENTER));
                 dialog.setSize(200,150);
 
@@ -39,20 +39,14 @@ public class FlowLayoutUI  {
                 okBtn.addActionListener(event -> dialog.dispose());
                 dialog.add(okBtn);
 
-
+                
                 dialog.setLocationRelativeTo(frame);
                 dialog.setVisible(true);
 
 
             }
         });
-        exitBtn.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                frame.dispose();
-                System.out.println("Program ended");
-            }
-        });
+        exitBtn.addActionListener(event -> frame.dispose());
 
 
 
