@@ -15,7 +15,8 @@ public class CardLayoutUI extends JFrame implements ActionListener {
      public CardLayoutUI(){
          cardLayout  =  new CardLayout(10,10);
          container =  getContentPane();
-         setLayout(cardLayout);
+        setLayout(cardLayout);
+
 
          Button b1 = new Button("button1");
          Button b2 = new Button("button2");
@@ -40,12 +41,14 @@ public class CardLayoutUI extends JFrame implements ActionListener {
      public void actionPerformed(ActionEvent e){
          cardLayout.next(container);
      }
-        public void onClose(){
-         addWindowListener(new WindowAdapter(){
-                     public void WindowClosing(WindowEvent e){
-                   dispose();
-                }
-            });
-        }
+     public void onClose() {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) { // ✅ Corrected case
+                dispose();
+            }
+        });
+    }
+    
+      
      }
-
