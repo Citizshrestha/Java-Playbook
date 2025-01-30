@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JavaPlayBook.iml" filepath="$PROJECT_DIR$/JavaPlayBook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/notesjava/notesjava.iml" filepath="$PROJECT_DIR$/notesjava/notesjava.iml" />
+    </modules>
+  </component>
+</project>

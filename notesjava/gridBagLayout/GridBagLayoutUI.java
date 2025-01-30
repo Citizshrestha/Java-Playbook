@@ -1,4 +1,4 @@
-package notesjava.GridBagLayout;
+package notesjava.gridBagLayout;
 
 
 import java.awt.Button;
@@ -9,7 +9,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class GridBagLayoutUI extends Frame {
-
+    public static void main(String[] args) {
+        new GridBagLayoutUI();
+    }
     GridBagLayoutUI() {
         
         GridBagLayout layout = new GridBagLayout();
