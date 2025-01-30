@@ -1,4 +1,4 @@
-package notesjava;
+package notesjava.cardLayout;
 
 import java.awt.*;
 import javax.swing.*;
