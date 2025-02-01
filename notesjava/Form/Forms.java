@@ -20,7 +20,7 @@ class RegisterForm extends JFrame {
     JRadioButton cb = new JRadioButton("Male");
     JRadioButton cb2 = new JRadioButton("Female");
     JButton btn = new JButton("Register");
-    ButtonGroup genderGroup = new ButtonGroup();  // For grouping radio buttons
+    ButtonGroup genderGroup = new ButtonGroup();  
 
     public RegisterForm() {
         // Set layout and add components
