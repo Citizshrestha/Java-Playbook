@@ -4,13 +4,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Forms {
+public class Forms extends JFrame {
     public static void main(String[] args) {
-        new RegisterForm();
+        new Forms();
     }
-}
 
-class RegisterForm extends JFrame {
     JLabel lbl = new JLabel("Please Register this form");
     JLabel lbl1 = new JLabel("Full Name");
     JTextField tf = new JTextField(15);
@@ -20,12 +18,13 @@ class RegisterForm extends JFrame {
     JRadioButton cb = new JRadioButton("Male");
     JRadioButton cb2 = new JRadioButton("Female");
     JButton btn = new JButton("Register");
-    ButtonGroup genderGroup = new ButtonGroup();  
+    ButtonGroup genderGroup = new ButtonGroup();
 
-    public RegisterForm() {
-        // Set layout and add components
+    public Forms() {
+        // Set JFrame properties
+        setTitle("Registration Form");
         setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        
+
         JPanel panelT = new JPanel();
         panelT.add(lbl);
         add(panelT);
@@ -50,18 +49,15 @@ class RegisterForm extends JFrame {
         panel4.add(btn);
         add(panel4);
 
-       
         genderGroup.add(cb);
         genderGroup.add(cb2);
 
-        
         btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 validateForm();
             }
         });
 
-        // Set JFrame properties
         setSize(600, 550);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,7 +80,6 @@ class RegisterForm extends JFrame {
             return;
         }
 
-     
         if (cb.isSelected()) {
             gender = "Male";
         } else if (cb2.isSelected()) {
@@ -94,7 +89,6 @@ class RegisterForm extends JFrame {
             return;
         }
 
-       
         JOptionPane.showMessageDialog(this, "Registration Successful!\n" +
                 "Name: " + fullName + "\n" +
                 "Address: " + address + "\n" +
