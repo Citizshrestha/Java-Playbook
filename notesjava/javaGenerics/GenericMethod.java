@@ -1,18 +1,20 @@
 package notesjava.javaGenerics;
 
+
+
 public class GenericMethod {
-
-  public static <T> void printArray(T[] arr){
-    for (T element: arr){
-      System.out.println("Elements in array are: "+ element);
+  public static <T> void printArray(T[] array) {
+    for (T element : array) {
+        System.out.print(element + " ");
     }
-  }
+    System.out.println();
+}
   public static void main(String[] args) {
-    Integer[] intArr = new Integer[] {1,2,3};
-    printArray(intArr);
+      Integer[] intArr = {1, 2, 3};
+      String[] strArr = {"Java", "Generics"};
 
-    String[] strArr = new String[] {"I", "AM","OK"};
-    printArray(strArr);
+      printArray(intArr);
+      printArray(strArr);
   }
 }
 
