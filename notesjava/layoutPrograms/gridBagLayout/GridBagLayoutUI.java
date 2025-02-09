@@ -5,7 +5,7 @@ package notesjava.gridBagLayout;
 import java.awt.*;
 import java.awt.event.*;
 
-import notesjava.gridLayout.GridLayoutUI;
+
 
 public class GridBagLayoutUI extends Frame{
   public static void main(String[] args) {
