@@ -1,9 +1,9 @@
-package notesjava.flowLayout;
+package layoutPrograms.flowLayout;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class FlowLayoutUI  {
+public class FlowLayoutUI extends Frame   {
     public static void main(String[] args) {
         new FlowLayoutUI();
 
@@ -11,17 +11,17 @@ public class FlowLayoutUI  {
     Frame frame;
     public FlowLayoutUI() {
          frame = new Frame();
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER));
+        setLayout(new FlowLayout(FlowLayout.CENTER));
 
         Label label = new Label("Enter Name");
         TextField textField = new TextField(10);
         Button submitBtn = new Button("Submit");
         Button exitBtn = new Button("Exit");
 
-        frame.add(label);
-        frame.add(textField);
-        frame.add(submitBtn);
-        frame.add(exitBtn);
+       add(label);
+        add(textField);
+        add(submitBtn);
+        add(exitBtn);
 
         textField.setPreferredSize(new Dimension(300,30));
 
@@ -46,13 +46,13 @@ public class FlowLayoutUI  {
 
             }
         });
-        exitBtn.addActionListener(event -> frame.dispose());
+        exitBtn.addActionListener(event -> dispose());
 
 
 
 
-        frame.setVisible(true);
-        frame.setSize(400, 300);
-        frame.setResizable(false);
+        setVisible(true);
+        setSize(400, 300);
+        setResizable(false);
     }
 }

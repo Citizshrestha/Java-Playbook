@@ -1,4 +1,4 @@
-package notesjava.cardLayout;
+package layoutPrograms.cardLayout;
 
 import java.awt.*;
 import javax.swing.*;
@@ -44,7 +44,7 @@ public class CardLayoutUI extends JFrame implements ActionListener {
      public void onClose() {
         addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) { // ✅ Corrected case
+            public void windowClosing(WindowEvent e) { 
                 dispose();
             }
         });

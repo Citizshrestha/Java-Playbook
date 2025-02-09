@@ -1,4 +1,5 @@
-package notesjava.Form;
+package notesjava.layoutPrograms.Form;
+
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
