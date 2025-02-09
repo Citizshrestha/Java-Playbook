@@ -1,4 +1,4 @@
-package notesjava.boxLayout;
+package layoutPrograms.boxLayout;
 
 import javax.swing.*;
 
@@ -26,7 +26,7 @@ public class BoxLayoutExample extends JFrame {
             panel.add(buttons[i]);
         }
 
-        // Add the panel to the frame
+        // Add the panel to the frame               
         add(panel);
 
         // Make the frame visible
