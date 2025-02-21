@@ -6,6 +6,10 @@ package layoutPrograms.gridBagLayout;
 import java.awt.*;
 import java.awt.event.*;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> aa6dc2d8d191062fee70be495c92345eee86933b
 
 public class GridBagLayoutUI extends Frame{
     public static void main(String[] args) {
@@ -45,6 +49,7 @@ public class GridBagLayoutUI extends Frame{
         constraints.gridy = 1;
         add(pwdText,constraints);
 
+<<<<<<< HEAD
         constraints.gridwidth =2;
         constraints.gridx  = 0;
         constraints.gridy  = 2;
@@ -61,3 +66,16 @@ public class GridBagLayoutUI extends Frame{
         });
     }
 }
+=======
+    onClose();
+  }
+  public void onClose(){
+    addWindowListener(new WindowAdapter() {
+      @Override
+      public void windowClosing(WindowEvent e){
+        dispose();
+      }
+    });
+  }
+}
+>>>>>>> aa6dc2d8d191062fee70be495c92345eee86933b
