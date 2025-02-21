@@ -1,3 +1,5 @@
+//Q1. Design a Signup form using only AWT components. Include name, email address, mobile number, gender, and address in the form. Validate and store the information in a database. 
+
 package layoutPrograms.cardLayout;
 
 import java.awt.*;
