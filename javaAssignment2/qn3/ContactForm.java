@@ -75,7 +75,7 @@ public class ContactForm extends JFrame implements ActionListener {
             Class.forName("com.mysql.cj.jdbc.Driver");
             // Connect to database
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/contact_db", "root", "DRSGAMING123");
+                    "jdbc:mysql://localhost:3306/contact_db", "root", "Citizstha9523");
 
             if (con != null) {
                 System.out.println("Database Connection Successful");

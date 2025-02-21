@@ -15,7 +15,7 @@ public class LoginFormAWT extends JFrame implements ActionListener {
     // Database connection 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/login_db";
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "DRSGAMING123";
+    private static final String DB_PASSWORD = "Citizstha9523";
 
     public LoginFormAWT() {
      
