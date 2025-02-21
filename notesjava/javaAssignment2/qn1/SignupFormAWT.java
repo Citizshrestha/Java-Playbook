@@ -1,3 +1,4 @@
+package javaAssignment2.qn1;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
