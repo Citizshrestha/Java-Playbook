@@ -12,23 +12,23 @@ public class LoginFormAWT extends JFrame implements ActionListener {
     private JPasswordField txtPassword;
     private JButton btnLogin;
 
-    // Database connection details
+    // Database connection 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/login_db";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "DRSGAMING123";
 
     public LoginFormAWT() {
-        // Frame setup
+     
         setTitle("Login Form");
         setSize(300, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Create panel with GridLayout
+  
         JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Initialize components
+       
         lblUsername = new JLabel("Username:");
         txtUsername = new JTextField();
 
@@ -46,7 +46,7 @@ public class LoginFormAWT extends JFrame implements ActionListener {
         panel.add(new JLabel()); // Empty cell
         panel.add(btnLogin);
 
-        // Add panel to frame
+        
         add(panel);
     }
 
@@ -55,7 +55,7 @@ public class LoginFormAWT extends JFrame implements ActionListener {
         String username = txtUsername.getText().trim();
         String password = new String(txtPassword.getPassword()).trim();
 
-        // Basic validation
+        // validation
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all fields",
                     "Error", JOptionPane.ERROR_MESSAGE);
