@@ -1,5 +1,5 @@
 // Q6. Write a GUI based Java program to demonstrate TCP/IP based message passing mechanism. Design a client-side message box with send button and a server-side message displaying label with client’s IP address and port information. The message flows from client to server only.
-package javaAssignment2.qn4;
+package qn4;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
