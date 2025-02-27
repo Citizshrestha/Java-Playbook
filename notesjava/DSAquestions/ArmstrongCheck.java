@@ -1,4 +1,4 @@
-package letsgoDSA;
+package DSAquestions;
 
 import java.util.Scanner;
 

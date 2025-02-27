@@ -1,6 +1,5 @@
-package letsgoDSA;
+package DSAquestions;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Function {
