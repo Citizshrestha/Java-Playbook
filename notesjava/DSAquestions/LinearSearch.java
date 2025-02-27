@@ -1,8 +1,8 @@
-package letsgoDSA;
+package DSAquestions;
 
 public class LinearSearch {
     public static void main(String[] args) {
-        int[] arr = {124, 3458, 22, 64, 7896};
+        int[] arr = {10, 124, 3458, 22, 64, 7896};
         int ans = findNumbers(arr);
         System.out.println(ans);
     }
@@ -19,6 +19,6 @@ public class LinearSearch {
 
     static boolean even(int n) {
         int numberOfDigits = (n == 0) ? 1 : (int) (Math.log10(Math.abs(n)) + 1);
-        return numberOfDigits % 2 == 0;
+        return numberOfDigits % 2 == 0; 
     }
 }
