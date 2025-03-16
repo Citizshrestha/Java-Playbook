@@ -1,58 +1,48 @@
-package layoutPrograms.flowLayout;
+package layouts.flowLayout;
 
 import java.awt.*;
-import java.awt.event.*;
+import javax.swing.*;
 
-public class FlowLayoutUI extends Frame   {
-    public static void main(String[] args) {
-        new FlowLayoutUI();
-
-    }
-    Frame frame;
-    public FlowLayoutUI() {
-         frame = new Frame();
+public class FlowLayoutUI extends JFrame  {
+    public FlowLayoutUI(){
+        setTitle("FlowLayout Demo");
+        setSize(400,300);
+        setResizable(false);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        Label label = new Label("Enter Name");
-        TextField textField = new TextField(10);
-        Button submitBtn = new Button("Submit");
-        Button exitBtn = new Button("Exit");
+        JLabel lbl = new JLabel("Enter your name");
+        JTextField namField = new JTextField(15);
+        JButton sendBtn = new JButton("SEND");
+        JButton exitBtn = new JButton("EXIT");
 
-       add(label);
-        add(textField);
-        add(submitBtn);
+        add(lbl);
+        add(namField);
+        add(sendBtn);
         add(exitBtn);
 
-        textField.setPreferredSize(new Dimension(300,30));
+        sendBtn.addActionListener(e -> {
+            JDialog dialog = new JDialog(this,"message", true);
+            dialog.setLayout(new FlowLayout());
+            dialog.setSize(250,150);
 
-        submitBtn.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                Dialog dialog = new Dialog(frame,"Messages",true);
-                dialog.setLayout(new FlowLayout(FlowLayout.CENTER));
-                dialog.setSize(200,150);
+            String input = namField.getText().trim();
+            String message = input.isEmpty()? "Hey, type a name first" : "Hello"+ input + "!";
+            dialog.add(new JLabel(message));
 
-                String message = textField.getText().isEmpty() ? "Please enter your name" : "Hello, " + textField.getText()+"!";
-                dialog.add(new Label(message));
+            JButton okBtn = new JButton("OK");
+            okBtn.addActionListener(event -> dialog.dispose());
+            dialog.add(okBtn);
 
-                Button okBtn  = new Button("OK");
-                okBtn.addActionListener(event -> dialog.dispose());
-                dialog.add(okBtn);
-
-                
-                dialog.setLocationRelativeTo(frame);
-                dialog.setVisible(true);
-
-
-            }
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
         });
-        exitBtn.addActionListener(event -> dispose());
 
-
-
+        exitBtn.addActionListener(e -> dispose());
 
         setVisible(true);
-        setSize(400, 300);
-        setResizable(false);
+    }
+    public static void main(String[] args) {
+        new FlowLayoutUI();
     }
 }
