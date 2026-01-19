@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servlet Lifecycle</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            background-color: #e8f4fc;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+
+        /* Diagram Styling */
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
+            padding: 20px;
+            background: #fafafa;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+        }
+
+        .diagram-title {
+            font-weight: bold;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+
+        .node {
+            background: white;
+            border: 2px solid #34495e;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 2;
+        }
+
+        .node.start-end {
+            background: #34495e;
+            color: white;
+            border-radius: 20px;
+            width: 100px;
+            font-size: 0.9em;
+        }
+
+        .node.action {
+            background: #ecf0f1;
+            border-color: #bdc3c7;
+        }
+
+        .node.method {
+            background: #fff;
+            border-color: #2980b9;
+            color: #2980b9;
+        }
+
+        .arrow {
+            height: 30px;
+            width: 2px;
+            background-color: #bdc3c7;
+            position: relative;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -4px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid #bdc3c7;
+        }
+
+        /* Special styling for the loop (Service) */
+        .loop-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .loop-label {
+            font-size: 0.8em;
+            color: #e67e22;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* Content List Styling */
+        .phase {
+            margin-bottom: 20px;
+        }
+
+        .phase h3 {
+            color: #2980b9;
+            margin-bottom: 5px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .phase ul {
+            margin-top: 5px;
+            padding-left: 20px;
+        }
+
+        .phase li {
+            margin-bottom: 5px;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #c0392b;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Servlet Overview</h1>
+        
+        <div class="intro">
+            <p>
+                A <strong>Servlet</strong> is a Java class that extends the capabilities of a server (typically a web server) to handle requests (especially HTTP). It generates dynamic content, such as interactive web pages or database interactions, forming the backbone of Java web applications.
+            </p>
+        </div>
+
+        <!-- Visualized Diagram -->
+        <div class="diagram-container">
+            <div class="diagram-title">Fig: Servlet Lifecycle Flow</div>
+            
+            <div class="node start-end">Start</div>
+            <div class="arrow"></div>
+            
+            <div class="node action">Loading & Instantiation</div>
+            <div class="arrow"></div>
+            
+            <div class="node method">init()</div>
+            <div class="arrow"></div>
+            
+            <div class="loop-container">
+                <div class="node method" style="border-color: #e67e22; color: #e67e22;">
+                    service()<br>
+                    <span style="font-size: 0.8em; font-weight: normal; color: #333;">(Ready for Requests)</span>
+                </div>
+                <div class="loop-label">⬅ Multiple Requests ➡</div>
+            </div>
+            
+            <div class="arrow"></div>
+            <div class="node method">destroy()</div>
+            
+            <div class="arrow"></div>
+            <div class="node start-end">End</div>
+        </div>
+
+        <!-- Detailed Phases -->
+        <div class="details">
+            <div class="phase">
+                <h3>i) Servlet Class Loading</h3>
+                <ul>
+                    <li>When the first client request arrives, the web container loads the servlet class.</li>
+                    <li>The container loads the <code>.class</code> file and uses the class loader to load it into memory.</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>ii) Servlet Instance Creation</h3>
+                <ul>
+                    <li>After loading the servlet class, the web container creates a single instance (object) of the class.</li>
+                    <li>Typically, only one instance is created per servlet to handle multiple requests efficiently.</li>
+                    <li>The instance remains in memory throughout the servlet's lifetime.</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>iii) Initialization Phase - <code>init()</code></h3>
+                <ul>
+                    <li>The <code>init()</code> method is called immediately after instance creation.</li>
+                    <li>It is invoked only <strong>once</strong> during the entire lifecycle.</li>
+                    <li>It is used for one-time initialization tasks such as loading configuration parameters, establishing DB connections, or creating lookup tables.</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>iv) Request Handling - <code>service()</code></h3>
+                <ul>
+                    <li>The <code>service()</code> method is called for every client request.</li>
+                    <li>It receives the <code>HttpServletRequest</code> and <code>HttpServletResponse</code> objects as parameters.</li>
+                    <li>It processes the incoming request and handles the response generation.</li>
+                    <li>It dispatches the request to methods like <code>doGet()</code>, <code>doPost()</code>, <code>doPut()</code>, and <code>doDelete()</code>.</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>v) Destruction Phase - <code>destroy()</code></h3>
+                <ul>
+                    <li>This is called once when the container decides to remove the servlet from service (e.g., server shutdown).</li>
+                    <li>It is used for closing files, releasing database connections, and performing other cleanup operations.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
