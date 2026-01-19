@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thymeleaf & JSP Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #764ba2;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-size: 1.8em;
+        }
+        
+        h3 {
+            color: #5a67d8;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .intro {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        li:before {
+            content: "▸";
+            position: absolute;
+            left: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .subsection {
+            margin-left: 20px;
+            margin-top: 10px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #764ba2;
+        }
+        
+        code {
+            background: #2d3748;
+            color: #68d391;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            border-left: 4px solid #68d391;
+        }
+        
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: #68d391;
+        }
+        
+        .tag {
+            background: #fef5e7;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #f39c12;
+        }
+        
+        strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Thymeleaf & JSP Guide</h1>
+        
+        <div class="intro">
+            <p><strong>Thymeleaf</strong> is a modern server-side Java template engine for web and standalone environments.</p>
+            <p style="margin-top: 10px;">Unlike JSP, it focuses on natural templating that can be displayed on static prototypes and work correctly when processed.</p>
+        </div>
+
+        <div class="section">
+            <h2>Key Characteristics of Thymeleaf</h2>
+            <ul>
+                <li><strong>Natural Templating:</strong> HTML files can be opened directly in browsers</li>
+                <li><strong>Spring Boot Integration:</strong> Default template engine in Spring Boot</li>
+                <li><strong>File Extension:</strong> <code>.html</code></li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>JSP Structure</h2>
+            <p>A JSP page consists of several key components that work together to generate dynamic web content.</p>
+            
+            <h3>i) Directives</h3>
+            <p>Provides instructions to the JSP web container about how to process the pages.</p>
+            
+            <div class="subsection">
+                <strong>a) Page Directives:</strong> Defines page-dependent attributes like language, content-type, import statements, error pages, and session management.
+                <pre><code>&lt;%@ page language="java" contentType="text/html; charset=UTF-8" %&gt;</code></pre>
+            </div>
+
+            <div class="subsection">
+                <strong>b) Include Directives:</strong> Includes static files at translation time.
+                <pre><code>&lt;%@ include %&gt;</code></pre>
+            </div>
+
+            <div class="subsection">
+                <strong>c) Taglib Directive:</strong> Allows JSTL or custom tag libraries.
+                <pre><code>&lt;%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %&gt;</code></pre>
+            </div>
+
+            <h3>ii) Scriptlets</h3>
+            <p>Allows Java code to be embedded within JSP pages during request processing.</p>
+            <ul>
+                <li>Write Java code into HTML directly</li>
+            </ul>
+            <pre><code>&lt;% 
+    int a = 10;
+    out.println(a);
+%&gt;</code></pre>
+
+            <h3>iii) Standard Actions</h3>
+            <p>JSP standard actions are XML-based style tags that perform specific functions.</p>
+            
+            <div class="tag">
+                <strong>&lt;jsp:include&gt;:</strong> Includes resources dynamically at request time
+            </div>
+            <div class="tag">
+                <strong>&lt;jsp:forward&gt;:</strong> Forwards requests to other resources
+            </div>
+            <div class="tag">
+                <strong>&lt;jsp:useBean&gt;:</strong> Instantiates or locates JavaBeans
+            </div>
+            <div class="tag">
+                <strong>&lt;jsp:param&gt;:</strong> Passes parameters to other JSP actions
+            </div>
+            <div class="tag">
+                <strong>&lt;jsp:getProperty&gt;, &lt;jsp:setProperty&gt;:</strong> Manipulate Java properties
+            </div>
+        </div>
+    </div>
+</body>
+</html>
