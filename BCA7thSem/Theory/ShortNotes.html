@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Programming Short Notes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+        }
+        
+        h2 {
+            color: #2d3748;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 10px;
+            font-size: 1.4em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .definition {
+            background: #f7fafc;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .pros {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+            color: white;
+        }
+        
+        .cons {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+            color: white;
+        }
+        
+        .pros h3, .cons h3 {
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border: 1px solid #3e4451;
+            position: relative;
+            white-space: pre-wrap;
+        }
+        
+        .code-block::before {
+            content: "Java";
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            font-size: 12px;
+            color: #5c6370;
+            background: #21252b;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .code-block .keyword {
+            color: #c678dd;
+            font-weight: bold;
+        }
+        
+        .code-block .class-name {
+            color: #e06c75;
+            font-weight: bold;
+        }
+        
+        .code-block .method {
+            color: #61afef;
+        }
+        
+        .code-block .string {
+            color: #98c379;
+        }
+        
+        .code-block .annotation {
+            color: #d19a66;
+        }
+        
+        .code-block .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+        
+        .features {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #764ba2;
+        }
+        
+        .features ul {
+            margin: 10px 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #ffd89b, #19547b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+        
+        code {
+            background: #e2e8f0;
+            color: #2d3748;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Java Programming Short Notes</h1>
+        
+        <h2>🧵 Multithreading in Java</h2>
+        
+        <div class="definition">
+            <p><strong>Thread:</strong> A thread is a lightweight sub-process or unit of execution within a program which allows a program to run multiple tasks concurrently, improving efficiency and responsiveness.</p>
+            
+            <p><strong>Multithreading in Java</strong> refers to the capability of a program to execute multiple threads concurrently.</p>
+            
+            <p>Multithreading allows multiple tasks to execute simultaneously within a single program, sharing the same memory space.</p>
+            
+            <p>It improves performance by utilizing CPU resources more efficiently, especially in multi-core systems.</p>
+            
+            <p>It can be implemented by either <span class="highlight">extending Thread class</span> or by <span class="highlight">implementing the Runnable interface</span>.</p>
+        </div>
+
+        <div class="pros-cons">
+            <div class="pros">
+                <h3>✅ Pros:</h3>
+                <ul>
+                    <li>Improves performance by efficiently utilizing CPU</li>
+                    <li>Makes it easier to respond to real-world problems with concurrent tasks</li>
+                    <li>Threads share memory and other resources, reducing overhead compared to processes</li>
+                </ul>
+            </div>
+            
+            <div class="cons">
+                <h3>❌ Cons:</h3>
+                <ul>
+                    <li>Writing and debugging multi-threaded programs can be challenging</li>
+                    <li>Needs synchronization to avoid race conditions</li>
+                    <li>Leads to performance overhead</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="code-block">
+<span class="keyword">class</span> <span class="class-name">MyThread</span> <span class="keyword">extends</span> <span class="class-name">Thread</span> {
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">run</span>() {
+        <span class="class-name">System</span>.<span class="method">out</span>.<span class="method">println</span>(<span class="string">"Thread is running"</span>);
+    }
+}
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">Main</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="class-name">String</span>[] args) {
+        <span class="class-name">MyThread</span> t1 = <span class="keyword">new</span> <span class="class-name">MyThread</span>();
+        t1.<span class="method">start</span>();
+    }
+}
+        </div>
+
+        <h2>🗃️ Object Relational Mapping (ORM)</h2>
+        
+        <div class="definition">
+            <p><strong>ORM</strong> stands for <span class="highlight">Object Relational Mapping</span> - a programming technique that allows developers to interact with relational databases using object-oriented programming paradigm.</p>
+            
+            <p>It acts as a bridge between the Object model in code (e.g., Java classes and objects) and the Relational model in database (rows, tables, columns).</p>
+        </div>
+
+        <div class="features">
+            <p><strong>ORM framework automatically translates operations on objects into corresponding SQL queries.</strong></p>
+            
+            <p>It provides an abstraction layer for:</p>
+            <ul>
+                <li>Mapping</li>
+                <li>Query generation</li>
+                <li>Lifecycle management</li>
+                <li>Portability</li>
+            </ul>
+        </div>
+
+        <div class="pros">
+            <h3>🎯 Benefits:</h3>
+            <ul>
+                <li>Increases developer productivity</li>
+                <li>Prevents SQL injection via prepared statements</li>
+                <li>Improves maintainability</li>
+            </ul>
+        </div>
+
+        <div class="code-block">
+<span class="annotation">@Entity</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">Student</span> {
+    <span class="annotation">@Id</span>
+    <span class="annotation">@GeneratedValue</span>(strategy = <span class="class-name">GenerationType</span>.AUTO)
+    <span class="keyword">private</span> <span class="class-name">Long</span> id;
+
+    <span class="keyword">private</span> <span class="class-name">String</span> name;
+
+    <span class="keyword">private</span> <span class="class-name">String</span> address;
+    
+    <span class="comment">// Getters and setters...</span>
+}
+        </div>
+
+        <h2>🚀 Tomcat Server</h2>
+        
+        <div class="definition">
+            <p><strong>Tomcat Server</strong>, also known as <span class="highlight">Apache Tomcat</span>, refers to an open-source Java servlet container which was developed by the Apache Software Foundation in 1999.</p>
+        </div>
+
+        <div class="features">
+            <ul>
+                <li>It implements the Java Servlet, Java Server Pages, Java Expression Language, and WebSocket technologies from Java EE platform</li>
+                <li>It is lightweight, embeddable and widely used for development, testing and production of servlet-based apps</li>
+                <li>Tomcat acts as a web server and application server for running Java-based web applications, handling HTTP requests, managing sessions and deploying WAR (Web Application Archive) files</li>
+            </ul>
+            
+            <p><strong>In simple terms:</strong> Tomcat server is the engine that runs Java web apps, turning them from code into live websites and APIs.</p>
+        </div>
+
+        <div class="code-block">
+<span class="annotation">@WebServlet</span>(<span class="string">"/hello"</span>)
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">Hello</span> <span class="keyword">extends</span> <span class="class-name">HttpServlet</span> {
+    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="method">doGet</span>(<span class="class-name">HttpServletRequest</span> req, <span class="class-name">HttpServletResponse</span> res) 
+            <span class="keyword">throws</span> <span class="class-name">IOException</span> {
+        res.<span class="method">setContentType</span>(<span class="string">"text/html"</span>);
+        res.<span class="method">getWriter</span>().<span class="method">println</span>(<span class="string">"&lt;h1&gt;Hello Tomcat&lt;/h1&gt;"</span>);
+    }
+}
+        </div>
+
+        <h2>🔌 Interface in Java</h2>
+        
+        <div class="definition">
+            <p>In Java, an <span class="highlight">interface</span> refers to a reference type which is similar to a class that defines the contract or blueprint for a set of methods without providing their implementations.</p>
+            
+            <p>It is essentially a collection of abstract methods, constant variables and can include default methods, static methods and nested types.</p>
+            
+            <p>Interfaces are declared using the <code>interface</code> keyword and cannot be instantiated directly.</p>
+            
+            <p>It promotes <strong>abstraction</strong>, <strong>multiple inheritance</strong> and <strong>loose coupling</strong> in object-oriented programming.</p>
+        </div>
+
+        <div class="features">
+            <p><strong>Interfaces are a core feature of Java's object-oriented design</strong>, allowing developers to define what a class should do without specifying how it does it.</p>
+        </div>
+
+        <div class="features">
+            <h3>🔑 Key Characteristics:</h3>
+            <ul>
+                <li>Can contain default methods, static methods and private methods</li>
+                <li>Methods are declared without specifying their implementation</li>
+                <li>All variables are implicitly <code>public static final</code></li>
+                <li>Support multiple inheritance through interface implementation</li>
+                <li>Provide a contract that implementing classes must follow</li>
+            </ul>
+        </div>
+
+        <h3 style="color: #2d3748; margin-top: 30px; margin-bottom: 15px;">📝 Example Implementation:</h3>
+        
+        <div class="code-block">
+<span class="comment">// Interface definition</span>
+<span class="keyword">interface</span> <span class="class-name">Animal</span> {
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">sound</span>();
+}
+
+<span class="comment">// Dog class implementing Animal interface</span>
+<span class="keyword">class</span> <span class="class-name">Dog</span> <span class="keyword">implements</span> <span class="class-name">Animal</span> {
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">sound</span>() {
+        <span class="class-name">System</span>.<span class="method">out</span>.<span class="method">println</span>(<span class="string">"Dog Barks Bhau"</span>);
+    }
+}
+
+<span class="comment">// Cat class implementing Animal interface</span>
+<span class="keyword">class</span> <span class="class-name">Cat</span> <span class="keyword">implements</span> <span class="class-name">Animal</span> {
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">sound</span>() {
+        <span class="class-name">System</span>.<span class="method">out</span>.<span class="method">println</span>(<span class="string">"Cat Meows"</span>);
+    }
+}
+
+<span class="comment">// Main class demonstrating polymorphism</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">Main</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="class-name">String</span>[] args) {
+        <span class="class-name">Animal</span> dog = <span class="keyword">new</span> <span class="class-name">Dog</span>();
+        <span class="class-name">Animal</span> cat = <span class="keyword">new</span> <span class="class-name">Cat</span>();
+        
+        dog.<span class="method">sound</span>();  <span class="comment">// Output: Dog Barks Bhau</span>
+        cat.<span class="method">sound</span>();  <span class="comment">// Output: Cat Meows</span>
+    }
+}
+        </div>
+
+        <div class="pros">
+            <h3>✨ Benefits of Interfaces:</h3>
+            <ul>
+                <li><strong>Abstraction:</strong> Hide implementation details from the user</li>
+                <li><strong>Multiple Inheritance:</strong> A class can implement multiple interfaces</li>
+                <li><strong>Polymorphism:</strong> Interface references can point to any implementing class</li>
+                <li><strong>Loose Coupling:</strong> Reduces dependency between classes</li>
+                <li><strong>Contract:</strong> Ensures implementing classes provide required methods</li>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>
