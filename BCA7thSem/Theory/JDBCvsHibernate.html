@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JDBC vs Hibernate Comparison</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            color: #4a5568;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .comparison-table th:first-child {
+            width: 200px;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .comparison-table tr:hover {
+            background: #edf2f7;
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+        
+        .criteria {
+            font-weight: bold;
+            color: #2d3748;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        
+        .jdbc-feature {
+            color: #2b6cb0;
+            font-weight: 500;
+        }
+        
+        .hibernate-feature {
+            color: #38a169;
+            font-weight: 500;
+        }
+        
+        .code-section {
+            margin: 40px 0;
+        }
+        
+        .code-title {
+            color: #2d3748;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin: 30px 0 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .code-block {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border: 1px solid #3e4451;
+            position: relative;
+            white-space: pre-wrap;
+        }
+        
+        .code-block::before {
+            content: "Java";
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            font-size: 12px;
+            color: #5c6370;
+            background: #21252b;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .keyword {
+            color: #c678dd;
+            font-weight: bold;
+        }
+        
+        .class-name {
+            color: #e06c75;
+            font-weight: bold;
+        }
+        
+        .method {
+            color: #61afef;
+        }
+        
+        .string {
+            color: #98c379;
+        }
+        
+        .annotation {
+            color: #d19a66;
+        }
+        
+        .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+        
+        .number {
+            color: #d19a66;
+        }
+        
+        .vs-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin: 0 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏛️ JDBC <span class="vs-badge">VS</span> 🌿 Hibernate</h1>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Comparison Criteria</th>
+                    <th>🔧 JDBC</th>
+                    <th>🌿 Hibernate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="criteria">Definition</td>
+                    <td class="jdbc-feature">A Java API for database connectivity using SQL queries directly</td>
+                    <td class="hibernate-feature">An Object Relational Mapping (ORM) framework to map Java objects to database tables</td>
+                </tr>
+                <tr>
+                    <td class="criteria">Approach</td>
+                    <td class="jdbc-feature"><strong>SQL-Centric:</strong> Developers write SQL queries manually</td>
+                    <td class="hibernate-feature"><strong>Object-Centric:</strong> Works with Java objects, generates SQL queries automatically</td>
+                </tr>
+                <tr>
+                    <td class="criteria">Database Dependency</td>
+                    <td class="jdbc-feature">Database-specific SQL code needed for different databases</td>
+                    <td class="hibernate-feature">Database-independent (dialect configurable)</td>
+                </tr>
+                <tr>
+                    <td class="criteria">Code Length</td>
+                    <td class="jdbc-feature">More boilerplate code required</td>
+                    <td class="hibernate-feature">Less code, more configuration-based</td>
+                </tr>
+                <tr>
+                    <td class="criteria">Performance</td>
+                    <td class="jdbc-feature">Faster for simple operations and direct SQL control</td>
+                    <td class="hibernate-feature">Optimized with caching mechanisms, slower for simple queries</td>
+                </tr>
+                <tr>
+                    <td class="criteria">Learning Curve</td>
+                    <td class="jdbc-feature">Easier to learn basics, familiar SQL concepts</td>
+                    <td class="hibernate-feature">Steeper learning curve, requires understanding of ORM concepts</td>
+                </tr>
+                <tr>
+                    <td class="criteria">Best Suited For</td>
+                    <td class="jdbc-feature">Simple operations, batch processing, applications requiring full SQL control</td>
+                    <td class="hibernate-feature">Complex domain models, rapid development, long-term maintainability</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="code-section">
+            <div class="code-title">🔧 JDBC Data Insertion Example</div>
+            
+            <div class="code-block">
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">InsertData</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="class-name">String</span>[] args) {
+        <span class="class-name">String</span> url = <span class="string">"jdbc:mysql://localhost:3307/empDb"</span>;
+        <span class="class-name">String</span> user = <span class="string">"root"</span>;
+        <span class="class-name">String</span> pass = <span class="string">"pass12"</span>;
+        
+        <span class="keyword">try</span> {
+            <span class="comment">// Load MySQL JDBC Driver</span>
+            <span class="class-name">Class</span>.<span class="method">forName</span>(<span class="string">"com.mysql.cj.jdbc.Driver"</span>);
+            
+            <span class="comment">// Establish database connection</span>
+            <span class="class-name">Connection</span> conn = <span class="class-name">DriverManager</span>.<span class="method">getConnection</span>(url, user, pass);
+            
+            <span class="comment">// Prepare SQL query with placeholders</span>
+            <span class="class-name">String</span> sqlQuery = <span class="string">"INSERT INTO Students(id, name, salary) VALUES(?,?,?)"</span>;
+            <span class="class-name">PreparedStatement</span> pstmt = conn.<span class="method">prepareStatement</span>(sqlQuery);
+            
+            <span class="comment">// Set parameters</span>
+            pstmt.<span class="method">setInt</span>(<span class="number">1</span>, <span class="number">1</span>);
+            pstmt.<span class="method">setString</span>(<span class="number">2</span>, <span class="string">"Citiz"</span>);
+            pstmt.<span class="method">setInt</span>(<span class="number">3</span>, <span class="number">200000</span>);
+
+            <span class="comment">// Execute the update</span>
+            <span class="keyword">int</span> rowsUpdated = pstmt.<span class="method">executeUpdate</span>();
+            <span class="keyword">if</span> (rowsUpdated > <span class="number">0</span>) {
+                <span class="class-name">System</span>.<span class="method">out</span>.<span class="method">println</span>(<span class="string">"Data inserted: rows affected = "</span> + rowsUpdated);
+            }
+            
+            <span class="comment">// Close resources</span>
+            pstmt.<span class="method">close</span>();
+            conn.<span class="method">close</span>();
+            
+        } <span class="keyword">catch</span> (<span class="class-name">Exception</span> e) {
+            e.<span class="method">printStackTrace</span>();
+        }
+    }
+}
+            </div>
+        </div>
+
+        <div class="code-section">
+            <div class="code-title">🌿 Hibernate Data Insertion Example</div>
+            
+            <div class="code-block">
+<span class="comment">// Entity class mapping</span>
+<span class="annotation">@Entity</span>
+<span class="annotation">@Table</span>(name = <span class="string">"employees"</span>)
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">Employee</span> {
+    <span class="annotation">@Id</span>
+    <span class="annotation">@GeneratedValue</span>(strategy = <span class="class-name">GenerationType</span>.IDENTITY)
+    <span class="keyword">private</span> <span class="class-name">Long</span> id;
+    
+    <span class="keyword">private</span> <span class="class-name">String</span> name;
+    <span class="keyword">private</span> <span class="class-name">Integer</span> salary;
+
+    <span class="comment">// Constructors, getters, and setters...</span>
+    <span class="keyword">public</span> <span class="class-name">Employee</span>() {}
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setName</span>(<span class="class-name">String</span> name) { 
+        <span class="keyword">this</span>.name = name; 
+    }
+    
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="method">setSalary</span>(<span class="class-name">Integer</span> salary) { 
+        <span class="keyword">this</span>.salary = salary; 
+    }
+}
+
+<span class="comment">// Hibernate session usage</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="class-name">HibernateExample</span> {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="method">main</span>(<span class="class-name">String</span>[] args) {
+        <span class="comment">// Get Hibernate session</span>
+        <span class="class-name">Session</span> session = <span class="class-name">HibernateUtil</span>.<span class="method">getSessionFactory</span>().<span class="method">openSession</span>();
+        <span class="class-name">Transaction</span> tx = session.<span class="method">beginTransaction</span>();
+
+        <span class="comment">// Create and populate employee object</span>
+        <span class="class-name">Employee</span> emp = <span class="keyword">new</span> <span class="class-name">Employee</span>();
+        emp.<span class="method">setName</span>(<span class="string">"Sycon"</span>);
+        emp.<span class="method">setSalary</span>(<span class="number">50000</span>);
+
+        <span class="comment">// Save object (Hibernate generates SQL automatically)</span>
+        session.<span class="method">save</span>(emp);
+        
+        <span class="comment">// Commit transaction and close session</span>
+        tx.<span class="method">commit</span>();
+        session.<span class="method">close</span>();
+    }
+}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

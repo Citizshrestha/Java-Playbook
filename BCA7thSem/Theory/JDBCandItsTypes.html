@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JDBC and Its Types</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .features-list {
+            background: #f5f7ff;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .features-list li {
+            margin: 10px 0;
+            list-style-position: inside;
+            color: #444;
+        }
+
+        .driver-types {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .driver-type-item {
+            background: #e8f0ff;
+            padding: 12px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            font-size: 1em;
+        }
+
+        .driver-type-item strong {
+            color: #667eea;
+        }
+
+        .driver-card {
+            background: #fff;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .driver-card:hover {
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .driver-card h4 {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .driver-image {
+            text-align: center;
+            margin: 15px 0;
+            background: #f5f7ff;
+            border: 1px solid #d0d8f8;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .driver-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
+        }
+
+        .driver-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        .description {
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.7;
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .pros {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+
+        .cons {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+
+        .pros h5 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .cons h5 {
+            color: #c62828;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .pros ul, .cons ul {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+
+        .pros li, .cons li {
+            color: #333;
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        .pros li::marker {
+            color: #4caf50;
+        }
+
+        .cons li::marker {
+            color: #f44336;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        @media (max-width: 768px) {
+            .driver-types,
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JDBC and Its Types</h1>
+        </header>
+
+        <div class="content">
+            <div class="section">
+                <p>JDBC (java database connectivity) refers to the java database connectivity which refers to a java API that enables developers using java applications to interact with relational database.</p>
+            </div>
+
+            <div class="section">
+                <h2>Features and Functions of JDBC</h2>
+                <div class="features-list">
+                    <ul>
+                        <li>Provides methods to connect to a database, execute query, retrieve results and update records.</li>
+                        <li>JDBC is a part of JAVA Standard Edition (JSE).</li>
+                        <li>Allow java program to communicate with any database that support sql</li>
+                        <li>JDBC acts as a bridge between a java application and a database using different JDBC drivers.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Different Driver Types of JDBC</h2>
+                <div class="driver-types">
+                    <div class="driver-type-item">
+                        <strong>1</strong> JDBC-ODBC bridge driver (Type 1 Driver)
+                    </div>
+                    <div class="driver-type-item">
+                        <strong>2</strong> Native API driver (Type 2 Driver)
+                    </div>
+                    <div class="driver-type-item">
+                        <strong>3</strong> Network Protocol Driver (Type 3 Driver)
+                    </div>
+                    <div class="driver-type-item">
+                        <strong>4</strong> Thin Driver (Type 4 Driver)
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="driver-card">
+                    <h4>Type 1 Driver OR JDBC-ODBC driver</h4>
+                    <div class="driver-image">
+                        <img src="Type-1Driver.jpg" alt="Type 1 JDBC-ODBC Bridge Driver Diagram">
+                    </div>
+                    <div class="description">
+                        <p>It uses ODBC driver to connect to the database. The JDBC-ODBC bridge driver converts JDBC method call into ODBC function calls.</p>
+                        <p>Type 1 driver is now discouraged due to platform dependency. Support for this driver is no longer available.</p>
+                    </div>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>Database independent (can be connected to any database easily)</li>
+                                <li>Easier to use</li>
+                                <li>Quick implementation for legacy systems</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Performance is degraded because the ODBC function call is converted into JDBC method call.</li>
+                                <li>Needs to be installed on individual client machine</li>
+                                <li>Type 1 Driver isn't written in java thats why it is not a portable driver.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="driver-card">
+                    <h4>Type 2 Driver OR Native API driver</h4>
+                    <div class="driver-image">
+                        <img src="Type-2Driver.jpg" alt="Type 2 Native API Driver Diagram">
+                    </div>
+                    <div class="description">
+                        <p>JDBC api calls are converted into native (C/C++) API calls which are unique to the database.</p>
+                        <p>These drivers are provided by the database vendors.</p>
+                        <p>The vendors specific driver must be installed on each client machine. If we change the DB, we need to change the native API.</p>
+                        <p>These driver is not fully written in java that is why it is called partial java driver.</p>
+                    </div>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>Native API driver gives better performance than Type 1 driver.</li>
+                                <li>Direct access to database-specific features</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Platform dependent and installation becomes complicated.</li>
+                                <li>Requires vendor-specific driver installation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="driver-card">
+                    <h4>Type 3 Driver OR Network Protocol Driver</h4>
+                    <div class="driver-image">
+                        <img src="Type3Driver.jpg" alt="Type 3 Network Protocol Driver Diagram">
+                    </div>
+                    <div class="description">
+                        <p>It uses middleware (application server) that converts JDBC method calls into vendors specific database protocol.</p>
+                        <p>All the Database connectivity drivers are present in the single server, hence no need for individual client side installation.</p>
+                        <p>This kind of driver is extremely flexible and a single driver can provide access to multiple database.</p>
+                    </div>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>Fully written in java hence they are portable drivers</li>
+                                <li>No client side installation is required.</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>Network support is required for client machine</li>
+                                <li>Maintenance of network protocol driver is costly.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="driver-card">
+                    <h4>Type 4 Driver OR Thin Driver</h4>
+                    <div class="driver-image">
+                        <img src="Type-4Driver.jpg" alt="Type 4 Thin Driver Diagram">
+                    </div>
+                    <div class="description">
+                        <p>It is also called Thin driver as it directly interacts with database. It does not require any native database libraries that is why it is known as Thin.</p>
+                        <p>It is highest performance driver available for the database and is usually provided by the vendor itself.</p>
+                    </div>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h5>Pros</h5>
+                            <ul>
+                                <li>No extra software is required for client-side or server-side.</li>
+                                <li>Fully written in java language hence they are portable drivers</li>
+                                <li>Better performance than any driver</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h5>Cons</h5>
+                            <ul>
+                                <li>As it is database dependent, if db varies then the driver will vary.</li>
+                                <li>Vendor-specific implementation with no flexibility</li>
+                                <li>May not support all database features</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
