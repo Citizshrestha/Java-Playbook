@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMI - Remote Method Invocation</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 8px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4361ee;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 0.95em;
+            margin-bottom: 35px;
+        }
+
+        h2 {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            color: white;
+            border-radius: 10px;
+            font-size: 1.3em;
+            box-shadow: 0 4px 10px rgba(67,97,238,0.3);
+        }
+
+        .definition {
+            background: #f0f4ff;
+            border-left: 5px solid #4361ee;
+            padding: 20px 25px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        /* ── Features ── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f0f4ff, #e8edff);
+            border: 1px solid #c7d2fe;
+            border-radius: 12px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            box-shadow: 0 2px 6px rgba(67,97,238,0.08);
+        }
+
+        .feature-icon {
+            font-size: 1.4em;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feature-text {
+            font-size: 0.93em;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        /* ── Architecture component cards ── */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin: 20px 0;
+        }
+
+        .arch-card {
+            background: #fafbff;
+            border-radius: 12px;
+            border-left: 5px solid #4361ee;
+            padding: 18px 20px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.07);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .arch-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67,97,238,0.15);
+        }
+
+        .arch-card.server-side { border-left-color: #7209b7; }
+        .arch-card.shared      { border-left-color: #4cc9f0; }
+
+        .arch-label {
+            display: inline-block;
+            font-size: 0.72em;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .label-client { background: #dbeafe; color: #1d4ed8; }
+        .label-server { background: #ede9fe; color: #6d28d9; }
+        .label-shared { background: #cffafe; color: #0e7490; }
+        .label-deprecated { background: #fef3c7; color: #92400e; }
+
+        .arch-title {
+            font-size: 1.05em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+
+        .arch-desc {
+            font-size: 0.9em;
+            color: #555;
+            margin: 0;
+        }
+
+        /* ── Diagram ── */
+        .diagram-wrapper {
+            background: #0d1117;
+            border-radius: 14px;
+            padding: 30px 20px;
+            margin: 25px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+            overflow-x: auto;
+        }
+
+        .diagram-wrapper svg {
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* ── Working / Flow ── */
+        .flow-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .flow-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            background: #fafbff;
+            border-radius: 10px;
+            border: 1px solid #e0e7ff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            font-size: 0.94em;
+            color: #374151;
+            transition: background 0.2s;
+        }
+
+        .flow-list li:hover { background: #eef2ff; }
+
+        .flow-step {
+            background: linear-gradient(135deg, #4361ee, #7209b7);
+            color: white;
+            font-weight: 700;
+            font-size: 0.82em;
+            min-width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .flow-arrow {
+            text-align: center;
+            color: #a5b4fc;
+            font-size: 1.2em;
+            margin: -4px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>RMI &mdash; Remote Method Invocation</h1>
+    <p class="subtitle">java.rmi package &nbsp;&bull;&nbsp; Distributed Computing &nbsp;&bull;&nbsp; JVM-to-JVM Communication</p>
+
+    <!-- Definition -->
+    <div class="definition">
+        <p><strong>RMI (Remote Method Invocation)</strong> is a Java API that allows objects in one Java Virtual Machine (JVM) to invoke methods on objects located in another JVM.</p>
+        <p style="margin-bottom:0">It enables distributed application development by allowing seamless communication between a client and a server over a network. RMI is part of the <code>java.rmi</code> package.</p>
+    </div>
+
+    <!-- Features -->
+    <h2>Features of RMI</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <span class="feature-icon">🌐</span>
+            <span class="feature-text">Enables remote communication between Java objects</span>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🖧</span>
+            <span class="feature-text">Supports distributed computing across multiple JVMs</span>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">📦</span>
+            <span class="feature-text">Uses object serialization to pass data over the network</span>
+        </div>
+        <div class="feature-card">
+            <span class="feature-icon">🔒</span>
+            <span class="feature-text">Provides security and dynamic class loading</span>
+        </div>
+    </div>
+
+    <!-- Architecture -->
+    <h2>Architecture of RMI</h2>
+    <p style="color:#555; margin-top:-10px; margin-bottom:20px;">The RMI architecture consists of the following main components:</p>
+
+    <div class="arch-grid">
+        <div class="arch-card">
+            <span class="arch-label label-client">Client Side</span>
+            <div class="arch-title">Client</div>
+            <p class="arch-desc">Requests remote services</p>
+            <p class="arch-desc">Invokes methods on remote objects as if they were local.</p>
+        </div>
+        <div class="arch-card">
+            <span class="arch-label label-client">Client Side</span>
+            <div class="arch-title">Stub</div>
+            <p class="arch-desc">Acts as a proxy for the remote object on the client side.</p>
+            <p class="arch-desc">Intercepts method calls and forwards requests to the server via the Remote Reference Layer.</p>
+        </div>
+        <div class="arch-card shared">
+            <span class="arch-label label-shared">Both Sides</span>
+            <div class="arch-title">Remote Reference Layer (RRL)</div>
+            <p class="arch-desc">Manages the virtual communication between the client and server.</p>
+        </div>
+        <div class="arch-card shared">
+            <span class="arch-label label-shared">Both Sides</span>
+            <div class="arch-title">Transport Layer</div>
+            <p class="arch-desc">Establishes and manages the actual network connection using <strong>TCP/IP</strong>.</p>
+        </div>
+        <div class="arch-card server-side">
+            <span class="arch-label label-server">Server Side</span>
+            <div class="arch-title">
+                Skeleton
+                <span class="arch-label label-deprecated" style="margin-left:6px; font-size:0.7em;">Deprecated in Java 2+</span>
+            </div>
+            <p class="arch-desc">Receives requests from the stub via the transport layer and passes them to the actual remote object implementation for execution.</p>
+        </div>
+        <div class="arch-card server-side">
+            <span class="arch-label label-server">Server Side</span>
+            <div class="arch-title">Server</div>
+            <p class="arch-desc">Contains the actual remote object implementation.</p>
+        </div>
+    </div>
+
+    <!-- Diagram -->
+    <h2>RMI Architecture Diagram</h2>
+    <div class="diagram-wrapper">
+        <img src="rmi_architecture.jpg" alt="RMI Architecture Diagram"
+             style="display:block; margin:0 auto; max-width:100%; border-radius:8px;"/>
+    </div>
+
+    <!-- Working -->
+    <h2>How RMI Works</h2>
+    <ul class="flow-list">
+        <li>
+            <div class="flow-step">1</div>
+            <span><strong>Client</strong> calls a method on the <strong>stub</strong> (proxy object).</span>
+        </li>
+        <li>
+            <div class="flow-step">2</div>
+            <span><strong>Stub</strong> forwards the request to the <strong>Remote Reference Layer (RRL)</strong>.</span>
+        </li>
+        <li>
+            <div class="flow-step">3</div>
+            <span><strong>RRL</strong> uses the <strong>Transport Layer</strong> to send the request over the network to the server.</span>
+        </li>
+        <li>
+            <div class="flow-step">4</div>
+            <span>On the server side, the <strong>Skeleton</strong> receives the request and passes it to the actual <strong>remote object</strong> implementation.</span>
+        </li>
+        <li>
+            <div class="flow-step">5</div>
+            <span>The <strong>remote object</strong> executes the requested method.</span>
+        </li>
+        <li>
+            <div class="flow-step">6</div>
+            <span>The result is sent back to the client through:<br>
+            <code style="font-size:0.9em">Skeleton → Transport Layer → RRL → Stub → Client</code></span>
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>
